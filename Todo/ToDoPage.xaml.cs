@@ -7,6 +7,20 @@ public partial class ToDoPage : ContentPage
     public ToDoItem ToDoItem { get; set; }
     private Action _addItemMethod;
 
+    public ToDoPage(Action addItemMethod, ToDoItem toDoItem)
+    {
+        InitializeComponent();
+        ToDoItem = toDoItem;
+        entryTitle.Text = ToDoItem.Title;
+        editorDescription.Text = ToDoItem.Description ;
+        checkBoxIsDone.IsChecked = ToDoItem.IsDone;
+        if (ToDoItem.CompletionDate != null)
+        {
+            datePickerCompletionDate.Date = (DateTime)ToDoItem.CompletionDate;
+        }
+        _addItemMethod = addItemMethod;
+    }
+
     public ToDoPage(Action addItemMethod)
 	{
         ToDoItem = new ToDoItem();

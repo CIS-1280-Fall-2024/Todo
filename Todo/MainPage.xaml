@@ -7,7 +7,7 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            <ListView x:Name="ToDoListView"/>
+            <ListView x:Name="ToDoListView" ItemTapped="ToDoListView_ItemTappedAsync"/>
             <Button x:Name="AddToDoButton" Text="Add To Do Item" Clicked="AddToDoButton_ClickedAsync"/>
         </VerticalStackLayout>
     </ScrollView>

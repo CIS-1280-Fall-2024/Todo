@@ -32,5 +32,12 @@ namespace Todo
             ToDoListView.ItemsSource = null;
             ToDoListView.ItemsSource = items;
         }
+
+        private async void ToDoListView_ItemTappedAsync(object sender, ItemTappedEventArgs e)
+        {
+            ToDoItem item = (ToDoItem)e.Item;
+            todoItemDialog = new ToDoPage(AddToDoToList,item);
+            await Navigation.PushModalAsync(todoItemDialog);
+        }
     }
 }
