@@ -1,37 +1,19 @@
 ﻿using System.Diagnostics;
+using Todo.Entitities.DALs;
 using Todo.Entitities.Models;
 
 namespace Todo
 {    
     public partial class MainPage : ContentPage
     {
+        ToDoDAL dal = new ToDoDAL();
         private List<ToDoItem> items = new List<ToDoItem>();
         ToDoPage page;
 
         public MainPage()
         {
             InitializeComponent();
-            items.Add(new ToDoItem()
-            {
-                Title = "Test item 1",
-                Description = "Test item 1 Description",
-                IsDone = false,
-                CompletionDate = null
-            });
-            items.Add(new ToDoItem()
-            {
-                Title = "Test item 2",
-                Description = "Test item 2 Description",
-                IsDone = false,
-                CompletionDate = null
-            });
-            items.Add(new ToDoItem()
-            {
-                Title = "Test item 3",
-                Description = "Test item 3 Description",
-                IsDone = true,
-                CompletionDate = DateTime.Now
-            });
+            items = dal.GetToDoItems();
             ToDoListView.ItemsSource = items;
         }
 
