@@ -47,8 +47,14 @@ namespace Todo.Entitities.DALs
             string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Rob011235\\source\\repos\\Tutorials\\Todo\\Todo\\ToDoDB.mdf;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string commStr = $"INSERT INTO ToDoItem VALUES ('{item.Id}', '{item.Title}', '{item.Description}', {(item.IsDone?1:0)}, '{item.CompletionDate}');";
+                //string commStr = $"INSERT INTO ToDoItem VALUES ('{item.Id}', '{item.Title}', '{item.Description}', {(item.IsDone?1:0)}, '{item.CompletionDate}');";
+                string commStr = $"INSERT INTO ToDoItem VALUES (@Id, @Title, @Description, @IsDone, @CompletionDate);";
                 SqlCommand cmd = new SqlCommand(commStr, conn);
+                cmd.Parameters.AddWithValue("Id", item.Id);
+                cmd.Parameters.AddWithValue ("Title", item.Title);
+                cmd.Parameters.AddWithValue ("Description", item.Description);
+                cmd.Parameters.AddWithValue("IsDone",item.IsDone);
+                cmd.Parameters.AddWithValue("CompletionDate", item.CompletionDate);
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
