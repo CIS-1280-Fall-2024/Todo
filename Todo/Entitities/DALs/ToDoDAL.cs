@@ -34,12 +34,24 @@ namespace Todo.Entitities.DALs
                     item.Title = dr.GetString(1);
                     item.Description = dr.GetString(2); 
                     item.IsDone = dr.GetBoolean(3);
-                    item.CompletionDate = dr.GetDateTime(4);
+                    item.CompletionDate = (DateTime?)dr.GetSqlDateTime(4);
                     items.Add(item);
                 }
             }
 
             return items;
+        }
+
+        public void AddToDoItem(ToDoItem item)
+        {
+            string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Rob011235\\source\\repos\\Tutorials\\Todo\\Todo\\ToDoDB.mdf;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                string commStr = $"INSERT INTO ToDoItem VALUES ('{item.Id}', '{item.Title}', '{item.Description}', {(item.IsDone?1:0)}, '{item.CompletionDate}');";
+                SqlCommand cmd = new SqlCommand(commStr, conn);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }
