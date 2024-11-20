@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Todo.ToDoPage"
+             Title="ToDoPage">
+    <VerticalStackLayout>
+        <Label Text="Title" />
+        <Entry x:Name="entryTitle" Placeholder="Title" />
+
+        <Label Text="Description" />
+        <Editor x:Name="editorDescription" AutoSize="TextChanges"  />
+
+        <Label Text="Is Done" />
+        <CheckBox x:Name="checkBoxIsDone"  IsChecked="false" />
+
+        <Label Text="Completion Date" />
+        <DatePicker x:Name="datePickerCompletionDate" />
+
+        <Button
+        x:Name="buttonSubmit"
+        Text="Please enter todo and then click me" 
+        SemanticProperties.Hint="Submits a todo item"
+        Clicked="OnSubmitClickedAsync"
+        HorizontalOptions="Fill" />
+
+        <Label x:Name="labelResults" Text="Please enter a todo and click the button"/>
+    </VerticalStackLayout>
+</ContentPage>
