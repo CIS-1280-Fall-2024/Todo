@@ -19,7 +19,7 @@ namespace Todo.Entitities.DALs
         {
             List<ToDoItem> items = new List<ToDoItem>();
 
-            string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Rob011235\\source\\repos\\Tutorials\\Todo\\Todo\\ToDoDB.mdf;Integrated Security=True";
+            string connStr = Preferences.Get("ConnectionString","");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string commStr = "SELECT * FROM ToDoItem";
@@ -44,14 +44,14 @@ namespace Todo.Entitities.DALs
 
         public void AddToDoItem(ToDoItem item)
         {
-            string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Rob011235\\source\\repos\\Tutorials\\Todo\\Todo\\ToDoDB.mdf;Integrated Security=True";
+            string connStr = Preferences.Get("ConnectionString", "");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string commStr = $"INSERT INTO ToDoItem VALUES (@Id, @Title, @Description, @IsDone, @CompletionDate);";
                 SqlCommand cmd = new SqlCommand(commStr, conn);
                 cmd.Parameters.AddWithValue("Id", item.Id);
-                cmd.Parameters.AddWithValue ("Title", item.Title);
-                cmd.Parameters.AddWithValue ("Description", item.Description);
+                cmd.Parameters.AddWithValue ("Title", item.Title??"");
+                cmd.Parameters.AddWithValue ("Description", item.Description??"");
                 cmd.Parameters.AddWithValue("IsDone",item.IsDone);
                 cmd.Parameters.AddWithValue("CompletionDate", item.CompletionDate);
                 conn.Open();
@@ -61,7 +61,7 @@ namespace Todo.Entitities.DALs
 
         public void UpdateToDoItem(ToDoItem item)
         {
-            string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Rob011235\\source\\repos\\Tutorials\\Todo\\Todo\\ToDoDB.mdf;Integrated Security=True";
+            string connStr = Preferences.Get("ConnectionString", "");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string commStr = "UPDATE ToDoItem SET Title = @Title, Description = @Description, IsDone = @IsDone, CompletionDate = @CompletionDate WHERE Id = @Id;";
@@ -78,7 +78,7 @@ namespace Todo.Entitities.DALs
 
         public void DeleteToDoItem(ToDoItem item)
         {
-            string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Rob011235\\source\\repos\\Tutorials\\Todo\\Todo\\ToDoDB.mdf;Integrated Security=True";
+            string connStr = Preferences.Get("ConnectionString", "");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string commStr = "DELETE FROM ToDoItem WHERE Id = @Id;";

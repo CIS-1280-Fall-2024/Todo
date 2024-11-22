@@ -9,7 +9,7 @@ public partial class ToDoPage : ContentPage
     private Action? _deleteMethod;
 
     public ToDoPage(Action submitMethod, Action? deleteMethod, ToDoItem toDoItem)
-    {
+    {        
         InitializeComponent();
         ToDoItem = toDoItem;
         entryTitle.Text = ToDoItem.Title;
