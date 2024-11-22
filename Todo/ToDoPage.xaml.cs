@@ -5,9 +5,9 @@ namespace Todo;
 public partial class ToDoPage : ContentPage
 {
     public ToDoItem ToDoItem { get; set; }
-    private Action _addItemMethod;
+    private Action _submitMethod;
 
-    public ToDoPage(Action addItemMethod, ToDoItem toDoItem)
+    public ToDoPage(Action submitMethod, ToDoItem toDoItem)
     {
         InitializeComponent();
         ToDoItem = toDoItem;
@@ -18,13 +18,13 @@ public partial class ToDoPage : ContentPage
         {
             datePickerCompletionDate.Date = (DateTime)ToDoItem.CompletionDate;
         }
-        _addItemMethod = addItemMethod;
+        _submitMethod = submitMethod;
     }
 
-    public ToDoPage(Action addItemMethod)
+    public ToDoPage(Action submitMethod)
 	{
         ToDoItem = new ToDoItem();
-        _addItemMethod = addItemMethod;
+        _submitMethod = submitMethod;
 		InitializeComponent();
 	}
 
@@ -41,7 +41,7 @@ public partial class ToDoPage : ContentPage
         labelResults.Text = ToDoItem.ToString();
 
         //Call action method
-        _addItemMethod();
+        _submitMethod();
 
         //Close page
         await Navigation.PopModalAsync();
