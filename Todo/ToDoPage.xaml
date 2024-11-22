@@ -15,13 +15,25 @@
 
         <Label Text="Completion Date" />
         <DatePicker x:Name="datePickerCompletionDate" />
+        <HorizontalStackLayout>
+            <Button
+                x:Name="SubmitButton"
+                Text="Please enter todo and then click me" 
+                SemanticProperties.Hint="Submits a todo item"
+                Clicked="OnSubmitClickedAsync" />
+            <Button
+                x:Name="DeleteButton"
+                Text="Delete this todo item" 
+                SemanticProperties.Hint="Deletes a todo item"
+                Clicked="DeleteButton_ClickedAsync"/>
+            <Button
+                x:Name="CancelButton"
+                Text="Cancel" 
+                SemanticProperties.Hint="Cancels todo item"
+                Clicked="CancelButton_ClickedAsync"/>
 
-        <Button
-        x:Name="buttonSubmit"
-        Text="Please enter todo and then click me" 
-        SemanticProperties.Hint="Submits a todo item"
-        Clicked="OnSubmitClickedAsync"
-        HorizontalOptions="Fill" />
+        </HorizontalStackLayout>
+
 
         <Label x:Name="labelResults" Text="Please enter a todo and click the button"/>
     </VerticalStackLayout>

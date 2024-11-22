@@ -75,5 +75,18 @@ namespace Todo.Entitities.DALs
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public void DeleteToDoItem(ToDoItem item)
+        {
+            string connStr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Rob011235\\source\\repos\\Tutorials\\Todo\\Todo\\ToDoDB.mdf;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                string commStr = "DELETE FROM ToDoItem WHERE Id = @Id;";
+                SqlCommand cmd = new SqlCommand(commStr, conn);
+                cmd.Parameters.AddWithValue("Id", item.Id);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

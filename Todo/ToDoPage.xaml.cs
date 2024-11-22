@@ -6,8 +6,9 @@ public partial class ToDoPage : ContentPage
 {
     public ToDoItem ToDoItem { get; set; }
     private Action _submitMethod;
+    private Action? _deleteMethod;
 
-    public ToDoPage(Action submitMethod, ToDoItem toDoItem)
+    public ToDoPage(Action submitMethod, Action? deleteMethod, ToDoItem toDoItem)
     {
         InitializeComponent();
         ToDoItem = toDoItem;
@@ -19,11 +20,14 @@ public partial class ToDoPage : ContentPage
             datePickerCompletionDate.Date = (DateTime)ToDoItem.CompletionDate;
         }
         _submitMethod = submitMethod;
+        _deleteMethod = deleteMethod;
+        DeleteButton.IsVisible = true;
     }
 
-    public ToDoPage(Action submitMethod):this(submitMethod,new ToDoItem())
+    public ToDoPage(Action submitMethod):this(submitMethod, null, new ToDoItem())
 	{
-	}
+        DeleteButton.IsVisible = false;
+    }
 
     private async void OnSubmitClickedAsync(object sender, EventArgs e)
     {
@@ -40,6 +44,22 @@ public partial class ToDoPage : ContentPage
         //Call action method
         _submitMethod();
 
+        //Close page
+        await Navigation.PopModalAsync();
+    }
+
+    private async void DeleteButton_ClickedAsync(object sender, EventArgs e)
+    {
+        if (_deleteMethod != null)
+        {
+            _deleteMethod();
+        }
+        //Close page
+        await Navigation.PopModalAsync();
+    }
+
+    private async void CancelButton_ClickedAsync(object sender, EventArgs e)
+    {
         //Close page
         await Navigation.PopModalAsync();
     }
