@@ -7,14 +7,13 @@ namespace Todo
     public partial class MainPage : ContentPage
     {
         ToDoDAL dal = new ToDoDAL();
-        private List<ToDoItem> items = new List<ToDoItem>();
         ToDoPage todoItemDialog;
 
         public MainPage()
         {
             InitializeComponent();
-            items = dal.GetToDoItems();
-            ToDoListView.ItemsSource = items;
+            SharedObjects.Instance.ToDoItems = dal.GetToDoItems();
+            ToDoListView.ItemsSource = SharedObjects.Instance.ToDoItems;
         }
 
         private async void AddToDoButton_ClickedAsync(object sender, EventArgs e)
@@ -28,7 +27,7 @@ namespace Todo
             //Add new item to database
             dal.AddToDoItem(todoItemDialog.ToDoItem);
             //Add new item to local list
-            items.Add(todoItemDialog.ToDoItem);
+            SharedObjects.Instance.ToDoItems.Add(todoItemDialog.ToDoItem);
 
             RefreshView();
         }
@@ -48,7 +47,7 @@ namespace Todo
             dal.DeleteToDoItem(todoItemDialog.ToDoItem);
 
             //Remove from local item list
-            items.Remove(todoItemDialog.ToDoItem);
+            SharedObjects.ToDoItems.Remove(todoItemDialog.ToDoItem);
 
             RefreshView();
         }
@@ -57,7 +56,7 @@ namespace Todo
         {
             //Refresh ToDoListView
             ToDoListView.ItemsSource = null;
-            ToDoListView.ItemsSource = items;
+            ToDoListView.ItemsSource = SharedObjects.Instance.ToDoItems;
         }
 
         private async void ToDoListView_ItemTappedAsync(object sender, ItemTappedEventArgs e)

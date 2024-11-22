@@ -5,8 +5,6 @@ public partial class FilePickerDemo : ContentPage
 	public FilePickerDemo()
 	{
 		InitializeComponent();
-
-
 	}
 
 
