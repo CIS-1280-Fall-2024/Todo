@@ -29,6 +29,19 @@ namespace Todo
             dal.AddToDoItem(todoItemDialog.ToDoItem);
             //Add new item to local list
             items.Add(todoItemDialog.ToDoItem);
+            //Refresh ToDoListView
+            ToDoListView.ItemsSource = null;
+            ToDoListView.ItemsSource = items;
+        }
+
+        public void UpdateToDoItem()
+        {
+            //Update item in database
+            dal.UpdateToDoItem(todoItemDialog.ToDoItem);
+
+            //Don't need to add new item in local list, it's already there!
+
+            //Refresh ToDoListView
             ToDoListView.ItemsSource = null;
             ToDoListView.ItemsSource = items;
         }
@@ -36,7 +49,7 @@ namespace Todo
         private async void ToDoListView_ItemTappedAsync(object sender, ItemTappedEventArgs e)
         {
             ToDoItem item = (ToDoItem)e.Item;
-            todoItemDialog = new ToDoPage(AddToDoToList,item);
+            todoItemDialog = new ToDoPage(UpdateToDoItem,item);
             await Navigation.PushModalAsync(todoItemDialog);
         }
     }
