@@ -21,11 +21,8 @@ public partial class ToDoPage : ContentPage
         _submitMethod = submitMethod;
     }
 
-    public ToDoPage(Action submitMethod)
+    public ToDoPage(Action submitMethod):this(submitMethod,new ToDoItem())
 	{
-        ToDoItem = new ToDoItem();
-        _submitMethod = submitMethod;
-		InitializeComponent();
 	}
 
     private async void OnSubmitClickedAsync(object sender, EventArgs e)
