@@ -8,7 +8,7 @@ namespace Todo
     {
         ToDoDAL dal = new ToDoDAL();
         private List<ToDoItem> items = new List<ToDoItem>();
-        ToDoPage todoItemDialog;
+        ToDoPage? todoItemDialog;
 
         public MainPage()
         {
@@ -25,32 +25,41 @@ namespace Todo
 
         public void AddToDoToList()
         {
-            //Add new item to database
-            dal.AddToDoItem(todoItemDialog.ToDoItem);
-            //Add new item to local list
-            items.Add(todoItemDialog.ToDoItem);
+            if (todoItemDialog != null)
+            {
+                //Add new item to database
+                dal.AddToDoItem(todoItemDialog.ToDoItem);
+                //Add new item to local list
+                items.Add(todoItemDialog.ToDoItem);
 
-            RefreshView();
+                RefreshView();
+            }
         }
 
         public void UpdateToDoItem()
         {
-            //Update item in database
-            dal.UpdateToDoItem(todoItemDialog.ToDoItem);
+            if (todoItemDialog != null)
+            {
+                //Update item in database
+                dal.UpdateToDoItem(todoItemDialog.ToDoItem);
 
-            //Don't need to add new item in local list, it's already there!
-            RefreshView();
+                //Don't need to add new item in local list, it's already there!
+                RefreshView();
+            }
         }
 
         public void DeleteToDoItem()
         {
-            //Delete item in database
-            dal.DeleteToDoItem(todoItemDialog.ToDoItem);
+            if (todoItemDialog != null)
+            {
+                //Delete item in database
+                dal.DeleteToDoItem(todoItemDialog.ToDoItem);
 
-            //Remove from local item list
-            items.Remove(todoItemDialog.ToDoItem);
+                //Remove from local item list
+                items.Remove(todoItemDialog.ToDoItem);
 
-            RefreshView();
+                RefreshView();
+            }
         }
 
         private void RefreshView()

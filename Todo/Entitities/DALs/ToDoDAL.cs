@@ -22,7 +22,7 @@ namespace Todo.Entitities.DALs
             string connStr = Preferences.Get("ConnectionString","");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string commStr = "SELECT * FROM ToDoItem";
+                string commStr = "SELECT * FROM ToDo";
                 SqlCommand cmd = new SqlCommand(commStr, conn);
                 conn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -47,7 +47,7 @@ namespace Todo.Entitities.DALs
             string connStr = Preferences.Get("ConnectionString", "");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string commStr = $"INSERT INTO ToDoItem VALUES (@Id, @Title, @Description, @IsDone, @CompletionDate);";
+                string commStr = $"INSERT INTO ToDo VALUES (@Id, @Title, @Description, @IsDone, @CompletionDate);";
                 SqlCommand cmd = new SqlCommand(commStr, conn);
                 cmd.Parameters.AddWithValue("Id", item.Id);
                 cmd.Parameters.AddWithValue ("Title", item.Title??"");
@@ -64,7 +64,7 @@ namespace Todo.Entitities.DALs
             string connStr = Preferences.Get("ConnectionString", "");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string commStr = "UPDATE ToDoItem SET Title = @Title, Description = @Description, IsDone = @IsDone, CompletionDate = @CompletionDate WHERE Id = @Id;";
+                string commStr = "UPDATE ToDo SET Title = @Title, Description = @Description, IsDone = @IsDone, CompletionDate = @CompletionDate WHERE Id = @Id;";
                 SqlCommand cmd = new SqlCommand(commStr, conn);
                 cmd.Parameters.AddWithValue("Id", item.Id);
                 cmd.Parameters.AddWithValue("Title", item.Title);
@@ -81,7 +81,7 @@ namespace Todo.Entitities.DALs
             string connStr = Preferences.Get("ConnectionString", "");
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string commStr = "DELETE FROM ToDoItem WHERE Id = @Id;";
+                string commStr = "DELETE FROM ToDo WHERE Id = @Id;";
                 SqlCommand cmd = new SqlCommand(commStr, conn);
                 cmd.Parameters.AddWithValue("Id", item.Id);
                 conn.Open();

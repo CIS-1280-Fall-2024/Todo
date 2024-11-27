@@ -5,8 +5,6 @@ public partial class FilePickerDemo : ContentPage
 	public FilePickerDemo()
 	{
 		InitializeComponent();
-
-
 	}
 
 
@@ -30,11 +28,11 @@ public partial class FilePickerDemo : ContentPage
 
         var fileResult = await PickAndShow(options);
 
-        string path = fileResult.FullPath;
+        string? path = fileResult?.FullPath??"";
         
     }
 
-    public async Task<FileResult> PickAndShow(PickOptions options)
+    public async Task<FileResult?> PickAndShow(PickOptions options)
     {
         try
         {
@@ -51,7 +49,7 @@ public partial class FilePickerDemo : ContentPage
 
             return result;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             // The user canceled or something went wrong
         }
